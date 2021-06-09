@@ -139,4 +139,13 @@ class BookController extends Controller
     {
         return Excel::download(new BookExport, 'lista_de_livros.xlsx');
     }
+
+    public function exportPDF()
+    {
+        $books = $this->book->where('user_id', Auth::id())->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade::loadView('book.pdf', compact('books'));
+        //$pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('lista_de_livros.pdf');
+    }
 }
