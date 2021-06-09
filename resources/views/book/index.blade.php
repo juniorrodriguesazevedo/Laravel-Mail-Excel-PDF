@@ -16,7 +16,7 @@
 
                   <form action="{{ route('book.search') }}" method="post" class="form-inline">
                     @csrf
-                    <input type="text" name="filter" class="form-control">
+                    <input type="text" name="filter" class="form-control" value="{{ $filters['filter'] ?? '' }}">
                     <button type="submit" class="btn btn-primary">Pesquisar</button>
                   </form>
                   <br>
