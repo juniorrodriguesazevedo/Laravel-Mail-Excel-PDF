@@ -22,6 +22,7 @@ class BookExport implements FromCollection, ShouldAutoSize, WithMapping, WithHea
     public function headings(): array
     {
         return [
+            'ID',
             'Nome',
             'Autor',
             'Data de publicação',
@@ -31,6 +32,7 @@ class BookExport implements FromCollection, ShouldAutoSize, WithMapping, WithHea
     public function map($invoice): array
     {
         return [
+            $invoice->id,
             $invoice->name,
             $invoice->author,
             date('d/m/Y', strtotime($invoice->date)),
