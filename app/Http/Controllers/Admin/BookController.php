@@ -160,7 +160,7 @@ class BookController extends Controller
     {
         $filters = $request->except('_token');
 
-        $books = $this->book->where(function($query) use ($request) {
+        $books = Auth::user()->books()->where(function($query) use ($request) {
             if ($request->filter) {
                 $query->where('name', 'LIKE', "%{$request->filter}%")
                     ->orWhere('author', 'LIKE', "%{$request->filter}%");
