@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\BookStoreUpdate;
+use App\Mail\BookMail;
+use Illuminate\Support\Facades\Mail;
 
 class BookController extends Controller
 {
@@ -48,12 +50,14 @@ class BookController extends Controller
      */
     public function store(BookStoreUpdate $request)
     {
-        $this->book->create([
+        $book = $this->book->create([
             'name' => $request->name,
             'author' => $request->author,
             'date' => $request->date,
             'user_id' => Auth::id()
         ]);
+
+        Mail::to(Auth::user()->email)->send(new BookMail($book));
 
         return redirect()->route('book.index')->with('success', "$request->name cadastrado com sucesso!");
     }
