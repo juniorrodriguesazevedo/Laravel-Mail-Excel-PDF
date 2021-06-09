@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -21,7 +22,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = $this->book->all();
+        $books = $this->book->where('user_id', Auth::id())->get();
 
         return view('book.index', compact('books'));
     }
@@ -33,7 +34,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book.create');
     }
 
     /**
@@ -44,7 +45,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->book->create([
+            'name' => $request->name,
+            'author' => $request->author,
+            'date' => $request->date,
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect()->route('book.index');
     }
 
     /**
