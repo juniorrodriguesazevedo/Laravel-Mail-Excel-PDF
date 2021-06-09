@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <a href="{{ route('book.create') }}" class="btn btn-primary">Cadastrar</a>
+                    <a href="{{ route('book.export.excel') }}" class="btn btn-success">Baixar Excel</a>
                 </div>
 
                 <div class="card-body">

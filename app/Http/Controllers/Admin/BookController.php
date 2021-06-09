@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
+use App\Exports\BookExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\BookStoreUpdate;
 
 class BookController extends Controller
@@ -131,5 +133,10 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('book.index')->with('success', "$book->name deletado com sucesso!");
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BookExport, 'lista_de_livros.xlsx');
     }
 }
