@@ -6,10 +6,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    mexe nisso depois
+                    <a href="{{ route('book.create') }}" class="btn btn-primary">Cadastrar</a>
                 </div>
 
                 <div class="card-body">
+                  @include('includes.alerts')
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                           <tr>

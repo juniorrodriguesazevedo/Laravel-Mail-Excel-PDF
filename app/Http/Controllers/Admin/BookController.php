@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BookStoreUpdate;
 
 class BookController extends Controller
 {
@@ -40,10 +41,10 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\BookStoreUpdate  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookStoreUpdate $request)
     {
         $this->book->create([
             'name' => $request->name,
@@ -52,7 +53,7 @@ class BookController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('book.index');
+        return redirect()->route('book.index')->with('success', "$request->name cadastrado com sucesso!");
     }
 
     /**
@@ -63,7 +64,13 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = $this->book->find($id);
+
+        if ($book->user_id != Auth::id()) {
+            return view('access-denied.index');
+        }
+
+        return view('book.show', compact('book'));
     }
 
     /**
@@ -74,19 +81,37 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = $this->book->find($id);
+
+        if ($book->user_id != Auth::id()) {
+            return view('access-denied.index');
+        }
+
+        return view('book.edit', compact('book'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\BookStoreUpdate  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookStoreUpdate $request, $id)
     {
-        //
+        $book = $this->book->find($id);
+
+        if ($book->user_id != Auth::id()) {
+            return view('access-denied.index');
+        }
+
+        $book->update([
+            'name' => $request->name,
+            'author' => $request->author,
+            'date' => $request->date,
+        ]);
+
+        return redirect()->route('book.index')->with('success', "$book->name atualizado com sucesso!");
     }
 
     /**
@@ -97,6 +122,14 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = $this->book->find($id);
+
+        if ($book->user_id != Auth::id()) {
+            return view('access-denied.index');
+        }
+
+        $book->delete();
+
+        return redirect()->route('book.index')->with('success', "$book->name deletado com sucesso!");
     }
 }

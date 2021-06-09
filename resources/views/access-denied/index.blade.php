@@ -5,14 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    mexe aqui depois
-                </div>
-
                 <div class="card-body">
-                    {!!Form::open()->method('put')->route('book.update', [$book->id])->fill($book)!!}
-                        @include('book._form')
-                    {!!Form::close()!!}
+                    <h2>Você não tem permissão para acessa essa página</h2>
+                    <img src="{{ asset('img/access-denied.png') }}" alt="Você não tem permissão para acessa essa página" width="400px">
                 </div>
             </div>
         </div>
