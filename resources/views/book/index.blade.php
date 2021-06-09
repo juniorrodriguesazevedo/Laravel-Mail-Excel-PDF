@@ -39,6 +39,11 @@
                         </tbody>
                       </table>
                 </div>
+
+                <div>
+                  {{ $books->links() }}
+                </div>
+                
             </div>
         </div>
     </div>

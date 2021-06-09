@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
 use App\Mail\BookStoreMail;
+use App\Mail\BookUpdateMail;
 use App\Exports\BookExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\BookStoreUpdate;
-use App\Mail\BookUpdateMail;
 
 class BookController extends Controller
 {
@@ -28,7 +28,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = $this->book->where('user_id', Auth::id())->get();
+        $books = $this->book->where('user_id', Auth::id())->paginate(5);
 
         return view('book.index', compact('books'));
     }
