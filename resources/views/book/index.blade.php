@@ -13,6 +13,13 @@
 
                 <div class="card-body">
                   @include('includes.alerts')
+
+                  <form action="{{ route('book.search') }}" method="post" class="form-inline">
+                    @csrf
+                    <input type="text" name="filter" class="form-control">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                  </form>
+                  <br>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
                           <tr>
@@ -41,7 +48,11 @@
                 </div>
 
                 <div>
-                  {{ $books->links() }}
+                  @if (isset($filters))
+                    {{ $books->appends($filters)->links() }}
+                  @else
+                    {{ $books->links() }}
+                  @endif
                 </div>
                 
             </div>

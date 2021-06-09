@@ -28,7 +28,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = $this->book->where('user_id', Auth::id())->paginate(5);
+        $books = $this->book->where('user_id', Auth::id())->latest()->paginate(5);
 
         return view('book.index', compact('books'));
     }
@@ -154,5 +154,19 @@ class BookController extends Controller
         $pdf = \Barryvdh\DomPDF\Facade::loadView('book.pdf', compact('books'));
         //$pdf->setPaper('a4', 'landscape');
         return $pdf->stream('lista_de_livros.pdf');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+
+        $books = $this->book->where(function($query) use ($request) {
+            if ($request->filter) {
+                $query->where('name', 'LIKE', "%{$request->filter}%")
+                    ->orWhere('author', 'LIKE', "%{$request->filter}%");
+            }
+        })->latest()->paginate();
+
+        return view('book.index', compact('books','filters'));
     }
 }
