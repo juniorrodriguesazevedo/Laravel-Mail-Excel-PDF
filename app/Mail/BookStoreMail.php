@@ -4,11 +4,11 @@ namespace App\Mail;
 
 use App\Models\Book;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BookMail extends Mailable
+class BookStoreMail extends Mailable
 {
     public $book;
     public $url;
@@ -26,7 +26,7 @@ class BookMail extends Mailable
         $this->url = 'http://127.0.0.1:8000/admin/book/'.$book->id;
     }
 
-    /**
+    /*
      * Build the message.
      *
      * @return $this

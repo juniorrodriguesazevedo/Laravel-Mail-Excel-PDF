@@ -1,5 +1,5 @@
 @component('mail::message')
-# Olá {{ Auth::user()->name }}!
+# Olá {{ Auth::user()->name }}
 
 Livro <b>{{ $book->name }}</b> cadastrado com sucesso!
 

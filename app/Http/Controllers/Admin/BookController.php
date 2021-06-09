@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
+use App\Mail\BookStoreMail;
 use App\Exports\BookExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\BookStoreUpdate;
-use App\Mail\BookMail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\BookStoreUpdate;
+use App\Mail\BookUpdateMail;
 
 class BookController extends Controller
 {
@@ -57,7 +58,7 @@ class BookController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        Mail::to(Auth::user()->email)->send(new BookMail($book));
+        Mail::to(Auth::user()->email)->send(new BookStoreMail($book));
 
         return redirect()->route('book.index')->with('success', "$request->name cadastrado com sucesso!");
     }
@@ -116,6 +117,8 @@ class BookController extends Controller
             'author' => $request->author,
             'date' => $request->date,
         ]);
+
+        Mail::to(Auth::user()->email)->send(new BookUpdateMail($book));
 
         return redirect()->route('book.index')->with('success', "$book->name atualizado com sucesso!");
     }
