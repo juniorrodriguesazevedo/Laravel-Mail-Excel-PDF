@@ -1,7 +1,5 @@
 ## Larave Mail, Excel e PDF
 
-## Em Desenvolvimento...
-
 Projeto feito para fins de aprendizado e treinamento, com autenticação de usuário, validações, relacionamento de banco de dados, exportação de dados em Excel e PDF e envio de e-mails de confirmação e atualização de livros cadastrados.
 
 ### Bibliotecas usadas:
