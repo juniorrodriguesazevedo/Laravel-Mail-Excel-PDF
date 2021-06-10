@@ -6,7 +6,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    mexe aqui depois
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('book.index') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('book.show', $book->id) }}">Ver</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('book.show', $book->id) }}">{{ $book->name }}</a></li>
+                        </ol>
+                    </nav>
                 </div>
 
                 <div class="card-body">
