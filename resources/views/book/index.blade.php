@@ -6,19 +6,35 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('book.create') }}" class="btn btn-primary">Cadastrar</a>
-                    <a href="{{ route('book.export.excel') }}" class="btn btn-success">Baixar Excel</a>
-                    <a href="{{ route('book.export.pdf') }}" target="_blank" class="btn btn-success">Baixar PDF</a>
+                  <div>
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('book.index') }}">Home</a></li>
+                      </ol>
+                    </nav>
+                  </div>
                 </div>
 
                 <div class="card-body">
                   @include('includes.alerts')
 
-                  <form action="{{ route('book.search') }}" method="post" class="form-inline">
-                    @csrf
-                    <input type="text" name="filter" class="form-control" value="{{ $filters['filter'] ?? '' }}">
-                    <button type="submit" class="btn btn-primary">Pesquisar</button>
-                  </form>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md">
+                        <form action="{{ route('book.search') }}" method="post" class="form-inline">
+                          @csrf
+                          <input type="text" name="filter" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+                          <button type="submit" class="btn btn-primary">Pesquisar</button>
+                        </form>
+                      </div>
+                      <div class="col-md-7">
+                        <a href="{{ route('book.create') }}" class="btn btn-primary">Cadastrar</a>
+                        <a href="{{ route('book.export.excel') }}" class="btn btn-success">Baixar Excel</a>
+                        <a href="{{ route('book.export.pdf') }}" target="_blank" class="btn btn-success">Baixar PDF</a>
+                      </div>
+                    </div>
+                  </div>
+
                   <br>
                     <table class="table table-striped table-bordered">
                         <thead class="table-dark">
