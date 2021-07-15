@@ -32,4 +32,11 @@ class BookStoreUpdate extends FormRequest
             'user_id' => ['exists:user,id']
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'author' => 'autor deve ter pelo menos 3 caracteres.'
+        ];
+    }
 }
